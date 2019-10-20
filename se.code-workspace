@@ -1,0 +1,21 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"name": "Atmega128",
+			"path": "Atmega128"
+		}
+	],
+  "settings": {
+    "files.associations": {
+      "*.html": "html",
+      "iom128.h": "c"
+    },
+    "terminal.integrated.env.windows": {
+      "PATH": "C:\\Users\\teofi\\.platformio\\penv\\Scripts;C:\\Users\\teofi\\.platformio\\penv;C:\\Program Files (x86)\\Common Files\\Oracle\\Java\\javapath;D:\\WinAVR-20100110\\bin;D:\\WinAVR-20100110\\utils\\bin;C:\\Program Files\\dotnet\\;C:\\Program Files\\Microsoft VS Code\\bin;D:\\Program Files\\Git\\cmd;C:\\Users\\teofi\\AppData\\Local\\Programs\\Python\\Python37-32\\Scripts\\;C:\\Users\\teofi\\AppData\\Local\\Programs\\Python\\Python37-32\\;C:\\Users\\teofi\\AppData\\Local\\Microsoft\\WindowsApps;D:\\Program Files\\JetBrains\\IntelliJ IDEA 2018.3.5\\bin;;C:\\Users\\teofi\\AppData\\Roaming\\nvm;C:\\Program Files\\nodejs;C:\\Users\\teofi\\AppData\\Local\\Programs\\MiKTeX 2.9\\miktex\\bin\\x64\\;D:\\Program Files\\JetBrains\\GoLand 2019.2\\bin;;D:\\Program Files\\avr-gcc-9.1.0-x64-mingw\\bin;C:\\Windows;C:\\Windows\\System32;C:\\Windows\\System32\\Wbem;C:\\Program Files\\Git\\usr\\bin;C:\\Windows\\System32\\OpenSSH;;C:\\Program Files (x86)\\Common Files\\Oracle\\Java\\javapath;D:\\WinAVR-20100110\\bin;D:\\WinAVR-20100110\\utils\\bin;C:\\Program Files\\dotnet\\;C:\\Program Files\\Microsoft VS Code\\bin;D:\\Program Files\\Git\\cmd;C:\\Users\\teofi\\AppData\\Local\\Programs\\Python\\Python37-32\\Scripts\\;C:\\Users\\teofi\\AppData\\Local\\Programs\\Python\\Python37-32\\;C:\\Users\\teofi\\AppData\\Local\\Microsoft\\WindowsApps;D:\\Program Files\\JetBrains\\IntelliJ IDEA 2018.3.5\\bin;;C:\\Users\\teofi\\AppData\\Roaming\\nvm;C:\\Program Files\\nodejs;C:\\Users\\teofi\\AppData\\Local\\Programs\\MiKTeX 2.9\\miktex\\bin\\x64\\;D:\\Program Files\\JetBrains\\GoLand 2019.2\\bin;;D:\\Program Files\\avr-gcc-9.1.0-x64-mingw\\bin;C:\\Windows;C:\\Windows\\System32;C:\\Windows\\System32\\Wbem;C:\\Program Files\\Git\\usr\\bin;C:\\Windows\\System32\\OpenSSH;",
+      "PLATFORMIO_CALLER": "vscode"
+    }
+  }
+}

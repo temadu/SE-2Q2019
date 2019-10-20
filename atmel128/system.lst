@@ -1,0 +1,139 @@
+   1               		.file	"system.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               	.global	turnLedOff
+  18               	turnLedOff:
+  19               	.LFB6:
+  20               	.LM1:
+  21               	/* prologue: function */
+  22               	/* frame size = 0 */
+  23               	.LM2:
+  24 0000 88B3      		in r24,56-32
+  25 0002 8FEF      		ldi r24,lo8(-1)
+  26 0004 88BB      		out 56-32,r24
+  27               	/* epilogue start */
+  28               	.LM3:
+  29 0006 0895      		ret
+  30               	.LFE6:
+  32               	.global	turnLedOn
+  34               	turnLedOn:
+  35               	.LFB7:
+  36               	.LM4:
+  37               	/* prologue: function */
+  38               	/* frame size = 0 */
+  39               	.LM5:
+  40 0008 88B3      		in r24,56-32
+  41 000a 18BA      		out 56-32,__zero_reg__
+  42               	/* epilogue start */
+  43               	.LM6:
+  44 000c 0895      		ret
+  45               	.LFE7:
+  47               	.global	main
+  49               	main:
+  50               	.LFB8:
+  51               	.LM7:
+  52               	/* prologue: function */
+  53               	/* frame size = 0 */
+  54               	.LM8:
+  55 000e 8FEF      		ldi r24,lo8(-1)
+  56 0010 87BB      		out 55-32,r24
+  57               	.LBB22:
+  58               	.LBB23:
+  59               	.LM9:
+  60 0012 4FEF      		ldi r20,lo8(-1)
+  61               	.LBE23:
+  62               	.LBE22:
+  63               	.LBB25:
+  64               	.LBB26:
+  65               	.LBB27:
+  66               	.LBB28:
+  67               	.LM10:
+  68 0014 28E8      		ldi r18,lo8(5000)
+  69 0016 33E1      		ldi r19,hi8(5000)
+  70               	.L6:
+  71               	.LBE28:
+  72               	.LBE27:
+  73               	.LBE26:
+  74               	.LBE25:
+  75               	.LBB32:
+  76               	.LBB24:
+  77               	.LM11:
+  78 0018 88B3      		in r24,56-32
+  79 001a 48BB      		out 56-32,r20
+  80               	.LBE24:
+  81               	.LBE32:
+  82               	.LBB33:
+  83               	.LBB31:
+  84               	.LBB30:
+  85               	.LBB29:
+  86               	.LM12:
+  87 001c C901      		movw r24,r18
+  88               	.LVL0:
+  89               	/* #APP */
+  90               	 ;  105 "d:/winavr-20100110/lib/gcc/../../avr/include/util/delay_basic.h" 1
+  91 001e 0197      		1: sbiw r24,1
+  92 0020 01F4      		brne 1b
+  93               	 ;  0 "" 2
+  94               	/* #NOAPP */
+  95               	.LBE29:
+  96               	.LBE30:
+  97               	.LBE31:
+  98               	.LBE33:
+  99               	.LBB34:
+ 100               	.LBB35:
+ 101               	.LM13:
+ 102 0022 88B3      		in r24,56-32
+ 103               	.LVL1:
+ 104 0024 18BA      		out 56-32,__zero_reg__
+ 105               	.LBE35:
+ 106               	.LBE34:
+ 107               	.LBB36:
+ 108               	.LBB37:
+ 109               	.LBB38:
+ 110               	.LBB39:
+ 111               	.LM14:
+ 112 0026 C901      		movw r24,r18
+ 113               	.LVL2:
+ 114               	/* #APP */
+ 115               	 ;  105 "d:/winavr-20100110/lib/gcc/../../avr/include/util/delay_basic.h" 1
+ 116 0028 0197      		1: sbiw r24,1
+ 117 002a 01F4      		brne 1b
+ 118               	 ;  0 "" 2
+ 119               	/* #NOAPP */
+ 120 002c 00C0      		rjmp .L6
+ 121               	.LBE39:
+ 122               	.LBE38:
+ 123               	.LBE37:
+ 124               	.LBE36:
+ 125               	.LFE8:
+ 127               	.global	tick
+ 128               	.global	tick
+ 129               		.section .bss
+ 132               	tick:
+ 133 0000 0000      		.skip 2,0
+ 134               	.global	seconds
+ 135               	.global	seconds
+ 138               	seconds:
+ 139 0002 0000      		.skip 2,0
+ 180               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 system.c
+D:\cygwin64\tmp/cctxhRpY.s:2      *ABS*:0000003f __SREG__
+D:\cygwin64\tmp/cctxhRpY.s:3      *ABS*:0000003e __SP_H__
+D:\cygwin64\tmp/cctxhRpY.s:4      *ABS*:0000003d __SP_L__
+D:\cygwin64\tmp/cctxhRpY.s:5      *ABS*:00000034 __CCP__
+D:\cygwin64\tmp/cctxhRpY.s:6      *ABS*:00000000 __tmp_reg__
+D:\cygwin64\tmp/cctxhRpY.s:7      *ABS*:00000001 __zero_reg__
+D:\cygwin64\tmp/cctxhRpY.s:18     .text:00000000 turnLedOff
+D:\cygwin64\tmp/cctxhRpY.s:34     .text:00000008 turnLedOn
+D:\cygwin64\tmp/cctxhRpY.s:49     .text:0000000e main
+D:\cygwin64\tmp/cctxhRpY.s:132    .bss:00000000 tick
+D:\cygwin64\tmp/cctxhRpY.s:138    .bss:00000002 seconds
+
+UNDEFINED SYMBOLS
+__do_clear_bss

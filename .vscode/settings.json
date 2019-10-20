@@ -1,0 +1,6 @@
+{
+  "files.associations": {
+    "*.html": "html",
+    "iom128.h": "c"
+  }
+}
