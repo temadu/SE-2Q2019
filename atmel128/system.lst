@@ -6,134 +6,252 @@
    6               	__tmp_reg__ = 0
    7               	__zero_reg__ = 1
   15               	.Ltext0:
-  16               	.global	turnLedOff
-  18               	turnLedOff:
-  19               	.LFB6:
+  16               	.global	setupTimer0
+  18               	setupTimer0:
+  19               	.LFB2:
   20               	.LM1:
   21               	/* prologue: function */
   22               	/* frame size = 0 */
   23               	.LM2:
-  24 0000 88B3      		in r24,56-32
-  25 0002 8FEF      		ldi r24,lo8(-1)
-  26 0004 88BB      		out 56-32,r24
-  27               	/* epilogue start */
-  28               	.LM3:
-  29 0006 0895      		ret
-  30               	.LFE6:
-  32               	.global	turnLedOn
-  34               	turnLedOn:
-  35               	.LFB7:
-  36               	.LM4:
-  37               	/* prologue: function */
-  38               	/* frame size = 0 */
-  39               	.LM5:
-  40 0008 88B3      		in r24,56-32
-  41 000a 18BA      		out 56-32,__zero_reg__
-  42               	/* epilogue start */
-  43               	.LM6:
-  44 000c 0895      		ret
-  45               	.LFE7:
-  47               	.global	main
-  49               	main:
-  50               	.LFB8:
-  51               	.LM7:
-  52               	/* prologue: function */
-  53               	/* frame size = 0 */
-  54               	.LM8:
-  55 000e 8FEF      		ldi r24,lo8(-1)
-  56 0010 87BB      		out 55-32,r24
-  57               	.LBB22:
-  58               	.LBB23:
-  59               	.LM9:
-  60 0012 4FEF      		ldi r20,lo8(-1)
-  61               	.LBE23:
-  62               	.LBE22:
-  63               	.LBB25:
-  64               	.LBB26:
-  65               	.LBB27:
-  66               	.LBB28:
-  67               	.LM10:
-  68 0014 28E8      		ldi r18,lo8(5000)
-  69 0016 33E1      		ldi r19,hi8(5000)
-  70               	.L6:
-  71               	.LBE28:
-  72               	.LBE27:
-  73               	.LBE26:
-  74               	.LBE25:
-  75               	.LBB32:
-  76               	.LBB24:
-  77               	.LM11:
-  78 0018 88B3      		in r24,56-32
-  79 001a 48BB      		out 56-32,r20
-  80               	.LBE24:
-  81               	.LBE32:
-  82               	.LBB33:
-  83               	.LBB31:
-  84               	.LBB30:
-  85               	.LBB29:
-  86               	.LM12:
-  87 001c C901      		movw r24,r18
-  88               	.LVL0:
-  89               	/* #APP */
-  90               	 ;  105 "d:/winavr-20100110/lib/gcc/../../avr/include/util/delay_basic.h" 1
-  91 001e 0197      		1: sbiw r24,1
-  92 0020 01F4      		brne 1b
-  93               	 ;  0 "" 2
-  94               	/* #NOAPP */
-  95               	.LBE29:
-  96               	.LBE30:
-  97               	.LBE31:
-  98               	.LBE33:
-  99               	.LBB34:
- 100               	.LBB35:
- 101               	.LM13:
- 102 0022 88B3      		in r24,56-32
- 103               	.LVL1:
- 104 0024 18BA      		out 56-32,__zero_reg__
- 105               	.LBE35:
- 106               	.LBE34:
- 107               	.LBB36:
- 108               	.LBB37:
- 109               	.LBB38:
- 110               	.LBB39:
- 111               	.LM14:
- 112 0026 C901      		movw r24,r18
- 113               	.LVL2:
- 114               	/* #APP */
- 115               	 ;  105 "d:/winavr-20100110/lib/gcc/../../avr/include/util/delay_basic.h" 1
- 116 0028 0197      		1: sbiw r24,1
- 117 002a 01F4      		brne 1b
- 118               	 ;  0 "" 2
- 119               	/* #NOAPP */
- 120 002c 00C0      		rjmp .L6
- 121               	.LBE39:
- 122               	.LBE38:
- 123               	.LBE37:
- 124               	.LBE36:
- 125               	.LFE8:
- 127               	.global	tick
- 128               	.global	tick
- 129               		.section .bss
- 132               	tick:
- 133 0000 0000      		.skip 2,0
- 134               	.global	seconds
- 135               	.global	seconds
- 138               	seconds:
- 139 0002 0000      		.skip 2,0
- 180               	.Letext0:
+  24 0000 83B7      		in r24,83-32
+  25 0002 8860      		ori r24,lo8(8)
+  26 0004 83BF      		out 83-32,r24
+  27               	.LM3:
+  28 0006 80E9      		ldi r24,lo8(-112)
+  29 0008 81BF      		out 81-32,r24
+  30               	.LM4:
+  31 000a 87B7      		in r24,87-32
+  32 000c 8260      		ori r24,lo8(2)
+  33 000e 87BF      		out 87-32,r24
+  34               	.LM5:
+  35               	/* #APP */
+  36               	 ;  27 "system.c" 1
+  37 0010 7894      		sei
+  38               	 ;  0 "" 2
+  39               	.LM6:
+  40               	/* #NOAPP */
+  41 0012 83B7      		in r24,83-32
+  42 0014 8760      		ori r24,lo8(7)
+  43 0016 83BF      		out 83-32,r24
+  44               	/* epilogue start */
+  45               	.LM7:
+  46 0018 0895      		ret
+  47               	.LFE2:
+  49               	.global	setupPWM
+  51               	setupPWM:
+  52               	.LFB3:
+  53               	.LM8:
+  54               	/* prologue: function */
+  55               	/* frame size = 0 */
+  56               	.LM9:
+  57 001a 85B5      		in r24,69-32
+  58 001c 8062      		ori r24,lo8(32)
+  59 001e 85BD      		out 69-32,r24
+  60               	.LM10:
+  61 0020 85B5      		in r24,69-32
+  62 0022 8864      		ori r24,lo8(72)
+  63 0024 85BD      		out 69-32,r24
+  64               	.LM11:
+  65 0026 87B7      		in r24,87-32
+  66 0028 8064      		ori r24,lo8(64)
+  67 002a 87BF      		out 87-32,r24
+  68               	.LM12:
+  69 002c 85B5      		in r24,69-32
+  70 002e 8160      		ori r24,lo8(1)
+  71 0030 85BD      		out 69-32,r24
+  72               	/* epilogue start */
+  73               	.LM13:
+  74 0032 0895      		ret
+  75               	.LFE3:
+  77               	.global	setPWMDutyCycle
+  79               	setPWMDutyCycle:
+  80               	.LFB4:
+  81               	.LM14:
+  82               	.LVL0:
+  83               	/* prologue: function */
+  84               	/* frame size = 0 */
+  85 0034 9C01      		movw r18,r24
+  86               	.LM15:
+  87 0036 8536      		cpi r24,101
+  88 0038 9105      		cpc r25,__zero_reg__
+  89 003a 04F0      		brlt .L6
+  90               	.LM16:
+  91 003c 8FEF      		ldi r24,lo8(-1)
+  92               	.LVL1:
+  93 003e 83BD      		out 67-32,r24
+  94 0040 0895      		ret
+  95               	.LVL2:
+  96               	.L6:
+  97               	.LM17:
+  98 0042 97FF      		sbrs r25,7
+  99 0044 00C0      		rjmp .L8
+ 100               	.LM18:
+ 101 0046 13BC      		out 67-32,__zero_reg__
+ 102 0048 0895      		ret
+ 103               	.L8:
+ 104               	.LM19:
+ 105 004a B901      		movw r22,r18
+ 106 004c 8827      		clr r24
+ 107 004e 77FD      		sbrc r23,7
+ 108 0050 8095      		com r24
+ 109 0052 982F      		mov r25,r24
+ 110               	.LVL3:
+ 111 0054 0E94 0000 		call __floatsisf
+ 112               	.LVL4:
+ 113 0058 20E0      		ldi r18,lo8(0x42c80000)
+ 114 005a 30E0      		ldi r19,hi8(0x42c80000)
+ 115 005c 48EC      		ldi r20,hlo8(0x42c80000)
+ 116 005e 52E4      		ldi r21,hhi8(0x42c80000)
+ 117 0060 0E94 0000 		call __divsf3
+ 118 0064 20E0      		ldi r18,lo8(0x437f0000)
+ 119 0066 30E0      		ldi r19,hi8(0x437f0000)
+ 120 0068 4FE7      		ldi r20,hlo8(0x437f0000)
+ 121 006a 53E4      		ldi r21,hhi8(0x437f0000)
+ 122 006c 0E94 0000 		call __mulsf3
+ 123 0070 0E94 0000 		call __fixunssfsi
+ 124 0074 63BD      		out 67-32,r22
+ 125 0076 0895      		ret
+ 126               	.LFE4:
+ 128               	.global	ej4
+ 130               	ej4:
+ 131               	.LFB5:
+ 132               	.LM20:
+ 133               	/* prologue: function */
+ 134               	/* frame size = 0 */
+ 135               	.LM21:
+ 136 0078 BF9A      		sbi 55-32,7
+ 137               	.LM22:
+ 138 007a 0E94 0000 		call setupTimer0
+ 139               	.L11:
+ 140 007e 00C0      		rjmp .L11
+ 141               	.LFE5:
+ 143               	.global	setPWMMode
+ 145               	setPWMMode:
+ 146               	.LFB6:
+ 147               	.LM23:
+ 148               	.LVL5:
+ 149               	/* prologue: function */
+ 150               	/* frame size = 0 */
+ 151               	.LM24:
+ 152 0080 8130      		cpi r24,1
+ 153 0082 9105      		cpc r25,__zero_reg__
+ 154 0084 01F0      		breq .L16
+ 155 0086 8230      		cpi r24,2
+ 156 0088 9105      		cpc r25,__zero_reg__
+ 157 008a 01F0      		breq .L17
+ 158 008c 892B      		or r24,r25
+ 159 008e 01F4      		brne .L18
+ 160               	.LM25:
+ 161 0090 8AE0      		ldi r24,lo8(10)
+ 162 0092 90E0      		ldi r25,hi8(10)
+ 163               	.LVL6:
+ 164 0094 00C0      		rjmp .L19
+ 165               	.LVL7:
+ 166               	.L16:
+ 167               	.LM26:
+ 168 0096 82E3      		ldi r24,lo8(50)
+ 169 0098 90E0      		ldi r25,hi8(50)
+ 170               	.LVL8:
+ 171               	.L19:
+ 172 009a 0E94 0000 		call setPWMDutyCycle
+ 173 009e 0895      		ret
+ 174               	.LVL9:
+ 175               	.L17:
+ 176               	.LM27:
+ 177 00a0 80E5      		ldi r24,lo8(80)
+ 178 00a2 90E0      		ldi r25,hi8(80)
+ 179               	.LVL10:
+ 180 00a4 0E94 0000 		call setPWMDutyCycle
+ 181               	.LVL11:
+ 182               	.L18:
+ 183 00a8 0895      		ret
+ 184               	.LFE6:
+ 186               	.global	__vector_15
+ 188               	__vector_15:
+ 189               	.LFB7:
+ 190               	.LM28:
+ 191 00aa 1F92      		push __zero_reg__
+ 192 00ac 0F92      		push r0
+ 193 00ae 0FB6      		in r0,__SREG__
+ 194 00b0 0F92      		push r0
+ 195 00b2 1124      		clr __zero_reg__
+ 196 00b4 8F93      		push r24
+ 197 00b6 9F93      		push r25
+ 198               	/* prologue: Signal */
+ 199               	/* frame size = 0 */
+ 200               	.LM29:
+ 201 00b8 8091 0000 		lds r24,centiSecondsPassed
+ 202 00bc 9091 0000 		lds r25,(centiSecondsPassed)+1
+ 203 00c0 0196      		adiw r24,1
+ 204 00c2 9093 0000 		sts (centiSecondsPassed)+1,r25
+ 205 00c6 8093 0000 		sts centiSecondsPassed,r24
+ 206               	.LM30:
+ 207 00ca 8536      		cpi r24,101
+ 208 00cc 9105      		cpc r25,__zero_reg__
+ 209 00ce 04F0      		brlt .L22
+ 210               	.LM31:
+ 211 00d0 88B3      		in r24,56-32
+ 212 00d2 8058      		subi r24,lo8(-(-128))
+ 213 00d4 88BB      		out 56-32,r24
+ 214               	.LM32:
+ 215 00d6 1092 0000 		sts (centiSecondsPassed)+1,__zero_reg__
+ 216 00da 1092 0000 		sts centiSecondsPassed,__zero_reg__
+ 217               	.L22:
+ 218               	/* epilogue start */
+ 219               	.LM33:
+ 220 00de 9F91      		pop r25
+ 221 00e0 8F91      		pop r24
+ 222 00e2 0F90      		pop r0
+ 223 00e4 0FBE      		out __SREG__,r0
+ 224 00e6 0F90      		pop r0
+ 225 00e8 1F90      		pop __zero_reg__
+ 226 00ea 1895      		reti
+ 227               	.LFE7:
+ 229               	.global	main
+ 231               	main:
+ 232               	.LFB8:
+ 233               	.LM34:
+ 234               	/* prologue: function */
+ 235               	/* frame size = 0 */
+ 236               	.LM35:
+ 237 00ec 0E94 0000 		call ej4
+ 238               	.LM36:
+ 239 00f0 80E0      		ldi r24,lo8(0)
+ 240 00f2 90E0      		ldi r25,hi8(0)
+ 241               	/* epilogue start */
+ 242 00f4 0895      		ret
+ 243               	.LFE8:
+ 245               	.global	centiSecondsPassed
+ 246               	.global	centiSecondsPassed
+ 247               		.section .bss
+ 250               	centiSecondsPassed:
+ 251 0000 0000      		.skip 2,0
+ 252               	.global	buttonPushCounter
+ 253               	.global	buttonPushCounter
+ 256               	buttonPushCounter:
+ 257 0002 0000      		.skip 2,0
+ 330               	.Letext0:
 DEFINED SYMBOLS
                             *ABS*:00000000 system.c
-D:\cygwin64\tmp/cctxhRpY.s:2      *ABS*:0000003f __SREG__
-D:\cygwin64\tmp/cctxhRpY.s:3      *ABS*:0000003e __SP_H__
-D:\cygwin64\tmp/cctxhRpY.s:4      *ABS*:0000003d __SP_L__
-D:\cygwin64\tmp/cctxhRpY.s:5      *ABS*:00000034 __CCP__
-D:\cygwin64\tmp/cctxhRpY.s:6      *ABS*:00000000 __tmp_reg__
-D:\cygwin64\tmp/cctxhRpY.s:7      *ABS*:00000001 __zero_reg__
-D:\cygwin64\tmp/cctxhRpY.s:18     .text:00000000 turnLedOff
-D:\cygwin64\tmp/cctxhRpY.s:34     .text:00000008 turnLedOn
-D:\cygwin64\tmp/cctxhRpY.s:49     .text:0000000e main
-D:\cygwin64\tmp/cctxhRpY.s:132    .bss:00000000 tick
-D:\cygwin64\tmp/cctxhRpY.s:138    .bss:00000002 seconds
+D:\cygwin64\tmp/ccZaexcQ.s:2      *ABS*:0000003f __SREG__
+D:\cygwin64\tmp/ccZaexcQ.s:3      *ABS*:0000003e __SP_H__
+D:\cygwin64\tmp/ccZaexcQ.s:4      *ABS*:0000003d __SP_L__
+D:\cygwin64\tmp/ccZaexcQ.s:5      *ABS*:00000034 __CCP__
+D:\cygwin64\tmp/ccZaexcQ.s:6      *ABS*:00000000 __tmp_reg__
+D:\cygwin64\tmp/ccZaexcQ.s:7      *ABS*:00000001 __zero_reg__
+D:\cygwin64\tmp/ccZaexcQ.s:18     .text:00000000 setupTimer0
+D:\cygwin64\tmp/ccZaexcQ.s:51     .text:0000001a setupPWM
+D:\cygwin64\tmp/ccZaexcQ.s:79     .text:00000034 setPWMDutyCycle
+D:\cygwin64\tmp/ccZaexcQ.s:130    .text:00000078 ej4
+D:\cygwin64\tmp/ccZaexcQ.s:145    .text:00000080 setPWMMode
+D:\cygwin64\tmp/ccZaexcQ.s:188    .text:000000aa __vector_15
+D:\cygwin64\tmp/ccZaexcQ.s:250    .bss:00000000 centiSecondsPassed
+D:\cygwin64\tmp/ccZaexcQ.s:231    .text:000000ec main
+D:\cygwin64\tmp/ccZaexcQ.s:256    .bss:00000002 buttonPushCounter
 
 UNDEFINED SYMBOLS
+__floatsisf
+__divsf3
+__mulsf3
+__fixunssfsi
 __do_clear_bss

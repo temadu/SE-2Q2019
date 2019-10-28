@@ -1,16 +1,6 @@
-#include "Extras.h"
+#include "Ej1.h"
 
 int centiSecondsPassed = 0; 
-
-void blink(){
-    DDRB |= (1 << PORTB7); 
-    PORTB = 0x00;
-
-    while (1) {
-        PORTB ^= 0x80;
-        _delay_ms(F2);
-    }
-}
 
 void setupTimer0(){
     TCCR0 |= (1 << WGM01); // CTC Mode
@@ -22,7 +12,6 @@ void setupTimer0(){
     TCCR0 |= (1 << CS00) | (1 << CS01) | (1 << CS02); // 1024 Prescaler
 
 }
-
 void setupPWM(){
   TCCR2 |= (1 << COM21); // set non-inverting mode (On compare match, apaga el pin)
   TCCR2 |= (1 << WGM21) | (1 << WGM20); // set fast PWM Mode
@@ -31,6 +20,7 @@ void setupPWM(){
 
   TCCR2 |= (1 << CS20); // set prescaler to 1 and starts timer
 }
+
 void setPWMDutyCycle(int percent){
   if(percent > 100){
     OCR2 = 255;
@@ -41,40 +31,43 @@ void setPWMDutyCycle(int percent){
   }
 }
 
-void blinkWithOurTimer(){
+void ej4(){
+
+    // setPWMDutyCycle(75);
+
+    DDRB |= (1 << PORTB7);
 
     setupTimer0();
-    setupPWM();
-    setPWMDutyCycle(75);
-
-    DDRB |= (1 << PORTB7); 
-    // PORTB = 0x00;
+    // setupPWM();
 
     while (1) {
-        // PORTB ^= 0x80;
-        // _delay_ms(F2);
+
     }
 }
 
-ISR(TIMER0_COMP_vect){
-  centiSecondsPassed++;
-  if(centiSecondsPassed > 20){
-    PORTB ^= 0x80;
-    centiSecondsPassed = 0;
+void setPWMMode(int mode){
+  switch(mode){
+    case 0:
+      setPWMDutyCycle(10);
+      break;
+    case 1:
+      setPWMDutyCycle(50);
+      break;
+    case 2:
+      setPWMDutyCycle(80);
+      break;
   }
 }
 
-void switcher(){
-    // SFIOR |= (1 << PUD);
-    DDRB |= (1 << PORTB7);  //B4 output
-    PORTB = 0b00000010; // Todo apagado
+int buttonPushCounter = 0;
 
-    while (1)
-    {
-      if((PINB & 0b00000010)){
-        PORTB |= (1 << PORTB7);
-      } else {
-        PORTB &= ~(1 << PORTB7);
-      }
-    }
+ISR(TIMER0_COMP_vect){
+  centiSecondsPassed++;
+  // setPWMDutyCycle(centiSecondsPassed * 5);
+  if(centiSecondsPassed > 100){
+    PORTB ^= (1 << PORTB7);
+    // buttonPushCounter++;
+    // setPWMMode(buttonPushCounter % 3);
+    centiSecondsPassed = 0;
+  }
 }

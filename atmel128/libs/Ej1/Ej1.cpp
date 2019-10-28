@@ -1,16 +1,6 @@
-#include "Extras.h"
+#include "Ej1.h"
 
-int centiSecondsPassed = 0; 
-
-void blink(){
-    DDRB |= (1 << PORTB7); 
-    PORTB = 0x00;
-
-    while (1) {
-        PORTB ^= 0x80;
-        _delay_ms(F2);
-    }
-}
+volatile int delayCentiSecondsTimer = 0; 
 
 void setupTimer0(){
     TCCR0 |= (1 << WGM01); // CTC Mode
@@ -41,40 +31,27 @@ void setPWMDutyCycle(int percent){
   }
 }
 
-void blinkWithOurTimer(){
+void ej1(){
 
     setupTimer0();
-    setupPWM();
-    setPWMDutyCycle(75);
+    // setupPWM();
+    // setPWMDutyCycle(75);
 
     DDRB |= (1 << PORTB7); 
-    // PORTB = 0x00;
+    PORTB = 0x00;
 
     while (1) {
-        // PORTB ^= 0x80;
-        // _delay_ms(F2);
+        PORTB ^= 0x80;
+        delay(50);
     }
 }
 
 ISR(TIMER0_COMP_vect){
-  centiSecondsPassed++;
-  if(centiSecondsPassed > 20){
-    PORTB ^= 0x80;
-    centiSecondsPassed = 0;
-  }
+  delayCentiSecondsTimer++;
 }
 
-void switcher(){
-    // SFIOR |= (1 << PUD);
-    DDRB |= (1 << PORTB7);  //B4 output
-    PORTB = 0b00000010; // Todo apagado
-
-    while (1)
-    {
-      if((PINB & 0b00000010)){
-        PORTB |= (1 << PORTB7);
-      } else {
-        PORTB &= ~(1 << PORTB7);
-      }
-    }
+void delay(int centiSecondsWait){
+  int unlockTime = delayCentiSecondsTimer + centiSecondsWait;
+  while(delayCentiSecondsTimer <= unlockTime){}
+  delayCentiSecondsTimer = 0;
 }

@@ -16,15 +16,14 @@
 
 #endif
 
-#ifndef EJ1
-#define EJ1
+#ifndef SERIAL
+#define SERIAL
 
-  #define F1 80
-  #define F2 20
-  #define F3 5
-
-  void setupPWM();
-  void setPWMDutyCycle(int percent);
-  void ej1();
+  void serialInit(unsigned int baud);
+  void sendByte(char byte);
+  void sendString(char s[]);
+  void sendByteSync(char byte);
+  void sendStringSync(char s[]);
+  void serialTest();
 
 #endif

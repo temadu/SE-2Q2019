@@ -1,5 +1,6 @@
-#include "Ej3.h"
+#include "Ej1.h"
 
+volatile int delayCentiSecondsTimer = 0; 
 volatile int centiSecondsPassed = 0; 
 volatile int centiSecondsToWait = 10; 
 
@@ -16,15 +17,34 @@ void setupTimer0(){
 
 }
 
+void setupPWM(){
+  TCCR2 |= (1 << COM21); // set non-inverting mode (On compare match, apaga el pin)
+  TCCR2 |= (1 << WGM21) | (1 << WGM20); // set fast PWM Mode
+
+  TIMSK |= (1 << TOIE2); // Enableeo el interrupt del clock
+
+  TCCR2 |= (1 << CS20); // set prescaler to 1 and starts timer
+}
+void setPWMDutyCycle(int percent){
+  if(percent > 100){
+    OCR2 = 255;
+  } else if (percent < 0) {
+    OCR2 = 0;
+  } else {
+    OCR2 = (percent/100.0)*255.0;
+  }
+}
+
 volatile int buttonPushCounter = 0;   
 volatile int buttonState = 0;  
 volatile int lastButtonState = 0; 
 
 void ej3(){
   DDRB |= (1 << PORTB7);  //B7 es unico output
-  PORTB |= (1 << PORTB1);
+  PORTB = 0x00;
 
   setupTimer0();
+  // setupPWM();
 
   while (1){
     // buttonState = (PINB & (1 << PORTB1));
@@ -42,8 +62,6 @@ void ej3(){
       buttonPushCounter++;
       if(buttonPushCounter > 3){
         buttonPushCounter = 0;
-      }
-      changerCentiSeconds = 0;
     }
     if(buttonPushCounter == 0){
       centiSecondsToWait = 10;
@@ -52,23 +70,25 @@ void ej3(){
     } else {
       centiSecondsToWait = 100;
     }
-
   }
 }
 
-checkInput(){
-  return PINB & (1 << PORTB1);
-}
-
 ISR(TIMER0_COMP_vect){
+  delayCentiSecondsTimer++;
   centiSecondsPassed++;
-  if (!checkInput()){
+  if ((PINB & (1 << PORTB1))){
     changerCentiSeconds++;
   } else {
-    // changerCentiSeconds = 0;
+    changerCentiSeconds = 0;
   }
   if(centiSecondsPassed > centiSecondsToWait){
     PORTB ^= (1 << PORTB7);
     centiSecondsPassed = 0;
   }
+}
+
+void delay(int centiSecondsWait){
+  int unlockTime = delayCentiSecondsTimer + centiSecondsWait;
+  while(delayCentiSecondsTimer <= unlockTime){}
+  delayCentiSecondsTimer = 0;
 }

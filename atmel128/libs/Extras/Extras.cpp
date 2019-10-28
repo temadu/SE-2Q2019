@@ -1,4 +1,4 @@
-#include "Extras.h"
+#include "Ej1.h"
 
 int centiSecondsPassed = 0; 
 
@@ -66,15 +66,15 @@ ISR(TIMER0_COMP_vect){
 
 void switcher(){
     // SFIOR |= (1 << PUD);
-    DDRB |= (1 << PORTB7);  //B4 output
-    PORTB = 0b00000010; // Todo apagado
+    DDRB |= (1 << PORTB4);  //B4 output
+    PORTB = 0b00000000; // Todo apagado
 
     while (1)
     {
       if((PINB & 0b00000010)){
-        PORTB |= (1 << PORTB7);
+        PORTB |= (1 << PORTB4);
       } else {
-        PORTB &= ~(1 << PORTB7);
+        PORTB &= ~(1 << PORTB4);
       }
     }
 }

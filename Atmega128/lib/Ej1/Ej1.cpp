@@ -1,17 +1,6 @@
 #include "Ej1.h"
+#include <Timer.h>
 
-volatile int delayCentiSecondsTimer = 0; 
-
-void setupTimer0(){
-    TCCR0 |= (1 << WGM01); // CTC Mode
-    OCR0 = 144;           // Cada cuantos Ticks quiero que levante el interrupt. https://eleccelerator.com/avr-timer-calculator/
-    TIMSK |= (1 << OCIE0); // Enableeo el interrupt del clock
-
-    sei();                // Seteo el flag de aceptar interrupts (es una instruccion de assembler que ni idea como hacer sin libreria)
-
-    TCCR0 |= (1 << CS00) | (1 << CS01) | (1 << CS02); // 1024 Prescaler
-
-}
 
 void setupPWM(){
   TCCR2 |= (1 << COM21); // set non-inverting mode (On compare match, apaga el pin)
@@ -44,14 +33,4 @@ void ej1(){
         PORTB ^= 0x80;
         delay(50);
     }
-}
-
-ISR(TIMER0_COMP_vect){
-  delayCentiSecondsTimer++;
-}
-
-void delay(int centiSecondsWait){
-  int unlockTime = delayCentiSecondsTimer + centiSecondsWait;
-  while(delayCentiSecondsTimer <= unlockTime){}
-  delayCentiSecondsTimer = 0;
 }
