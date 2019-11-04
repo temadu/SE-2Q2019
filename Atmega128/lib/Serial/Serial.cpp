@@ -5,6 +5,8 @@
 #define TX_BUFFER_SIZE 128
 #define RX_BUFFER_SIZE 128
 
+#define RX_SYNC_BUFFER_SIZE 32
+
 char txBuffer[TX_BUFFER_SIZE];
 char rxBuffer[RX_BUFFER_SIZE];
 
@@ -73,13 +75,20 @@ void sendStringSync(char s[]){
 char receiveByteSync(){
   return USART_RX();
 }
-void receiveStringSync(){
-  char r[32];
+char* receiveStringSync(){
+  char s[RX_SYNC_BUFFER_SIZE];
   int i = 0;
 
-  // for(unsigned int i = 0; i < strlen(s); ++i){
-  //   USART_TX(s[i]);
-  // }
+  char c;
+  while((c = receiveByteSync()) != '\n'){
+    s[i] = c;
+    i++;
+    if (i == RX_SYNC_BUFFER_SIZE){
+      i = 0;
+    }
+  }
+  s[i] = '\0';
+  return s;
 }
 
 char receiveByte(){
@@ -93,6 +102,7 @@ char receiveByte(){
   }
   return ret;
 }
+
 char arr[10];
 int i = 0; 
 
@@ -117,21 +127,7 @@ void serialTest(){
     
 
     while (1){
-      char c = receiveByte();
-      if(c != '\0'){
-        arr[i] = c;
-        i++;
-        if(i >= 10){
-          i = 0;
-        }
-      }
-      if(c=='0'){
-        // PORTB |= 0xFF;
-        sbi(PORTB, PORT0);
-      } else if (c=='1'){
-        // PORTB &= 0x00;
-        cbi(PORTB, PORT0);
-      }
+      
     }
 }
 

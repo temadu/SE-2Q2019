@@ -3,6 +3,7 @@
 
   #define F_CPU 14745600
 
+
   #include <avr/io.h>
   #include <avr/iom128.h>
   #include <avr/interrupt.h>
@@ -11,20 +12,17 @@
   
   #define cbi(sfr, bit) (_SFR_BYTE(sfr) &= -_BV(bit))
   #define sbi(sfr, bit) (_SFR_BYTE(sfr) |= _BV(bit))
+  
 
 #endif
 
-#ifndef SERIAL
-#define SERIAL
+#ifndef TP2
+#define TP2
 
-  void serialInit(unsigned int baud);
-  void sendByte(char byte);
-  void sendString(char s[]);
-  char receiveByte();
-  void sendByteSync(char byte);
-  void sendStringSync(char s[]);
-  char receiveByteSync();
-  char* receiveStringSync();
-  void serialTest();
+  #define F1 10
+  #define F2 50
+  #define F3 100
+
+  void tp2();
 
 #endif

@@ -8,23 +8,16 @@
   #include <avr/interrupt.h>
   #include <string.h>
   #include <stdlib.h>
-  
+
   #define cbi(sfr, bit) (_SFR_BYTE(sfr) &= -_BV(bit))
   #define sbi(sfr, bit) (_SFR_BYTE(sfr) |= _BV(bit))
 
 #endif
 
-#ifndef SERIAL
-#define SERIAL
-
-  void serialInit(unsigned int baud);
-  void sendByte(char byte);
-  void sendString(char s[]);
-  char receiveByte();
-  void sendByteSync(char byte);
-  void sendStringSync(char s[]);
-  char receiveByteSync();
-  char* receiveStringSync();
-  void serialTest();
+#ifndef PWM
+#define PWM
+;
+  void setupPWM();
+  void setPWMDutyCycle(double percent);
 
 #endif

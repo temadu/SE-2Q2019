@@ -1,5 +1,8 @@
 #include "Ej3.h"
 
+#define SHORT_PRESS_CHECKS 3
+
+
 volatile int centiSecondsPassed = 0; 
 volatile int centiSecondsToWait = 10; 
 volatile int changerCentiSeconds = 0; 
@@ -7,6 +10,9 @@ volatile int changerCentiSeconds = 0;
 volatile int buttonPushCounter = 0;   
 volatile int buttonState = 0;  
 volatile int lastButtonState = 0; 
+
+volatile int DC = 10;
+volatile int blinker = 1;
 
 void lightFrecuencyInterruption(){
   centiSecondsPassed++;
@@ -16,24 +22,34 @@ void lightFrecuencyInterruption(){
     changerCentiSeconds = 0;
   }
   if(centiSecondsPassed > centiSecondsToWait){
-    PORTB ^= (1 << PORTB7);
+    if(blinker){
+      setPWMDutyCycle(DC);
+    } else {
+      setPWMDutyCycle(0);
+    }
+    blinker = !blinker;
+    // PORTB ^= (1 << PORTB7);
     centiSecondsPassed = 0;
   }
 }
 
+
 void setPWMMode(int mode){
   switch(mode){
     case 0:
-      setPWMDutyCycle(10);
+      DC = 10;
+      // setPWMDutyCycle(10);
       sendStringSync("0");
       break;
     case 1:
+      DC = 50;
       sendStringSync("1");
-      setPWMDutyCycle(50);
+      // setPWMDutyCycle(50);
       break;
     case 2:
+      DC = 80;
       sendStringSync("2");
-      setPWMDutyCycle(80);
+      // setPWMDutyCycle(80);
       break;
   }
 }
@@ -41,20 +57,19 @@ void setPWMMode(int mode){
 int pwmModeCounter = 0;
 int lightIntesityCheck = 0;
 void lightIntensityInterruption(){
-  if(lightIntesityCheck == 1 && (PIND & (1<<PD0))){
-    pwmModeCounter++;
-    if(pwmModeCounter > 2){
-      pwmModeCounter = 0;
-    }
-    setPWMMode(pwmModeCounter);
-  }
-  
   if (PIND & (1<<PD0)){
     lightIntesityCheck++;
-    if(lightIntesityCheck >= 2){
-      lightIntesityCheck = 2;
+    if(lightIntesityCheck >= SHORT_PRESS_CHECKS){
+      lightIntesityCheck = SHORT_PRESS_CHECKS;
     }
   } else {
+    if(lightIntesityCheck < SHORT_PRESS_CHECKS){
+      pwmModeCounter++;
+      if(pwmModeCounter > 2){
+        pwmModeCounter = 0;
+      }
+      setPWMMode(pwmModeCounter);
+    }
     lightIntesityCheck = 0;
   }
 }
@@ -63,7 +78,7 @@ void ej3(){
 
   setupTimer0();
   serialInit(9600);
-  // setupPWM();
+  setupPWM();
 
   DDRB |= (1 << PORTB7); 
   PORTB |= 0x80;
@@ -71,6 +86,7 @@ void ej3(){
   PORTD = 0x00;
 
   setInterval(1,lightFrecuencyInterruption);
+  setInterval(5,lightIntensityInterruption);
 
   while(1){
 

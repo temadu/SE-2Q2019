@@ -1,73 +1,61 @@
 #include "Ej2.h"
 
 
-void setupPWM(){
-  OCR2 = 255;
-  TCCR2 |= (1 << COM21); // set non-inverting mode (On compare match, apaga el pin)
-  TCCR2 |= (1 << WGM21) | (1 << WGM20); // set fast PWM Mode
+#define F1 800
+#define F2 200
+#define F3 50
 
-  TIMSK |= (1 << TOIE2); // Enableeo el interrupt del clock
-
-  TCCR2 |= (1 << CS20); // set prescaler to 1 and starts timer
-}
-
-void setPWMDutyCycle(int percent){
-  if(percent > 100){
-    OCR2 = 255;
-  } else if (percent < 0) {
-    OCR2 = 0;
-  } else {
-    OCR2 = (percent/100.0)*255.0;
-  }
-}
 
 void setPWMMode(int mode){
   switch(mode){
     case 0:
       setPWMDutyCycle(10);
+      sendStringSync("0");
       break;
     case 1:
+      sendStringSync("1");
       setPWMDutyCycle(50);
       break;
     case 2:
+      sendStringSync("2");
       setPWMDutyCycle(80);
       break;
   }
 }
-
-// ISR(TIMER0_COMP_vect){
-//   centiSecondsPassed++;
-//   if(centiSecondsPassed > 20){
-//     PORTB ^= 0x80;
-//     centiSecondsPassed = 0;
-//   }
-// }
-
-// ISR(TIMER0_OVF_vect){
-//   centiSecondsPassed++;
-//   if(centiSecondsPassed > 20){
-//     PORTB ^= 0x80;
-//     centiSecondsPassed = 0;
-//   }
-// }
 
 int buttonPushCounter = 0;   
 int buttonState = 0;  
 int lastButtonState = 0; 
 
 void ej2(){
-  DDRB |= (1 << PORTB7);  //B7 es unico output
+
+  setupTimer0();
+  serialInit(9600);
   setupPWM();
 
-  while (1){
-    if (buttonState != lastButtonState) {
-      if ((PINB & (1 << PORTB1))) {
-        buttonPushCounter++;
-      }
-      //Delay para debounce 
-    }
-    lastButtonState = buttonState;
+  DDRB |= (1 << PORTB7);  //B4 output
+  DDRD = 0x00; //Makes all pins of PORTD input
+  PORTD = 0x00;
 
+  int pressCount = 0;
+  while(1){
+    if(PIND & (1<<PD0)){
+      pressCount++;
+    } else {
+      pressCount = 0;
+    }
+    if(pressCount >= 10){
+      buttonState = 1;
+      pressCount = 10;
+    } else {
+      buttonState = 0;
+      lastButtonState = 0;
+    }
+
+    if (buttonState == 1 && buttonState != lastButtonState) {
+      lastButtonState = 1;
+      buttonPushCounter++;
+    }
     setPWMMode(buttonPushCounter % 3);
   }
 }

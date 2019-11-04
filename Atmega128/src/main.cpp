@@ -1,8 +1,9 @@
 
 #include <Ej1.h>
-// #include <Ej2.h>
-// #include <Ej3.h>
-// #include <Ej4.h>
+#include <Ej2.h>
+#include <Ej3.h>
+#include <Ej4.h>
+#include <TP2.h>
 #include <Serial.h>
 #include <Timer.h>
 
@@ -35,11 +36,12 @@ void switcher(){
 
 int main(void)
 {
-    switcher();
+    // switcher();
     // ej1();
     // ej2();
     // ej3();
     // ej4();
+    tp2();
     // serialTest();
 
     return 0;

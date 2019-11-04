@@ -1,18 +1,28 @@
-#ifndef EJ2
-#define EJ2
+#ifndef BASIC
+#define BASIC
 
   #define F_CPU 14745600
-  #define F1 800
-  #define F2 200
-  #define F3 50
+
 
   #include <avr/io.h>
   #include <avr/iom128.h>
   #include <avr/interrupt.h>
+  #include <string.h>
+  #include <stdlib.h>
+  
+  #define cbi(sfr, bit) (_SFR_BYTE(sfr) &= -_BV(bit))
+  #define sbi(sfr, bit) (_SFR_BYTE(sfr) |= _BV(bit))
+  
 
-  void setupPWM();
-  void setPWMDutyCycle(int percent);
-  void setPWMMode(int mode);
+#endif
+
+#ifndef EJ2
+#define EJ2
+
+  #include <Timer.h>
+  #include <Serial.h>
+  #include <PWM.h>
+
   void ej2();
 
 
