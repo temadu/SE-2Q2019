@@ -4,6 +4,7 @@
 #include <Ej3.h>
 #include <Ej4.h>
 #include <TP2.h>
+#include <TP3.h>
 #include <Serial.h>
 #include <Timer.h>
 
@@ -41,7 +42,8 @@ int main(void)
     // ej2();
     // ej3();
     // ej4();
-    tp2();
+    // tp2();
+    tp3();
     // serialTest();
 
     return 0;
