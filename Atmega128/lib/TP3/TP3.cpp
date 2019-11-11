@@ -1,5 +1,6 @@
 #include "TP3.h"
 #include<stdio.h> 
+#include <math.h>
 #include <Timer.h>
 #include <Serial.h>
 #include <PWM.h>
@@ -12,10 +13,31 @@ volatile char commandBuffer[COMMAND_BUFFER_SIZE];
 volatile int crankValue = 0;
 volatile int thermValue = 0;
 
+double getDecimal(double num){
+ return ((num-(int)num)*10);
+}
+
+double getTemp(int val){
+	long R=((10230000/val) - 10000);/* calculate the resistance */
+	double Thermister = log(R);	/* calculate natural log of resistance */
+	/* Steinhart-Hart Thermistor Equation: */
+	/*  Temperature in Kelvin = 1 / (A + B[ln(R)] + C[ln(R)]^3)		*/
+	/*  where A = 0.001129148, B = 0.000234125 and C = 8.76741*10^-8  */
+	Thermister = 1 / (0.001129148 + (0.000234125 * Thermister) + (0.0000000876741 * Thermister * Thermister * Thermister));
+	Thermister = Thermister - 273.15;/* convert kelvin to °C */
+	
+	return Thermister;
+}
+
 void sendStatus(){
-  char buffer[25];
-  sprintf(buffer, "crankADC: %d, thermistorADC: %d\n", crankValue, thermValue);
+  char buffer[50];
+  double crankCalc = (crankValue*5.0)/1024.0;  
+  double thermCalc = getTemp(thermValue);  
+  sprintf(buffer, "crankADC: %d, crankVolt: %d.%d%d V\n", crankValue, (int) crankCalc, (int) getDecimal(crankCalc), (int) getDecimal(getDecimal(crankCalc)));
   sendStringSync(buffer);
+  sprintf(buffer, "thermADC: %d, temperature: %d.%d%d Celsius\n", thermValue, (int) thermCalc, (int) getDecimal(thermCalc), (int) getDecimal(getDecimal(thermCalc)));
+  sendStringSync(buffer);
+  sendStringSync("\n");
 }
 
 void startConversion(){
